@@ -34,8 +34,8 @@ function concatenateStrings(value1, value2) {
  *   'b'     => 1
  *   ''      => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  return value.length;
 }
 
 /**
@@ -51,8 +51,8 @@ function getStringLength(/* value */) {
  *   'John','Doe'      => 'Hello, John Doe!'
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -65,8 +65,8 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.substring(7, value.length - 1);
 }
 
 
@@ -80,8 +80,8 @@ function extractNameFromTemplate(/* value */) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.substr(0, 1);
 }
 
 /**
@@ -95,8 +95,8 @@ function getFirstChar(/* value */) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /**
@@ -110,8 +110,8 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(/* value, count */) {
-  throw new Error('Not implemented');
+function repeatString(value, count) {
+  return value.repeat(count);
 }
 
 /**
@@ -126,8 +126,8 @@ function repeatString(/* value, count */) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  return str.replace(value, '');
 }
 
 /**
@@ -141,8 +141,8 @@ function removeFirstOccurrences(/* str, value */) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.substring(1, str.length - 1);
 }
 
 
@@ -156,8 +156,8 @@ function unbracketTag(/* str */) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
 
 /**
@@ -175,8 +175,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -202,8 +202,56 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let str = '';
+
+  for (let x = 0; x < height; x += 1) {
+    for (let y = 0; y < width; y += 1) {
+      switch (x) {
+        case 0:
+          switch (y) {
+            case 0:
+              str += '┌';
+              break;
+            case width - 1:
+              str += '┐\n';
+              break;
+            default:
+              str += '─';
+              break;
+          }
+          break;
+        case height - 1:
+          switch (y) {
+            case 0:
+              str += '└';
+              break;
+            case width - 1:
+              str += '┘\n';
+              break;
+            default:
+              str += '─';
+              break;
+          }
+          break;
+        default:
+          switch (y) {
+            case 0:
+              str += '│';
+              break;
+            case width - 1:
+              str += '│\n';
+              break;
+            default:
+              str += ' ';
+              break;
+          }
+          break;
+      }
+    }
+  }
+
+  return str;
 }
 
 
@@ -223,8 +271,30 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let res = '';
+  for (let i = 0; i < str.length; i += 1) {
+    const charCode = str.charCodeAt(i);
+
+    let newCharCode = 0;
+    if (charCode >= 65 && charCode <= 90) {
+      if (charCode + 13 > 90) {
+        newCharCode = charCode + 13 - 90 + 64;
+      } else {
+        newCharCode = charCode + 13;
+      }
+    } else if (charCode > 122 || charCode < 65) {
+      newCharCode = charCode;
+    } else if (charCode + 13 > 122) {
+      newCharCode = charCode + 13 - 122 + 96;
+    } else {
+      newCharCode = charCode + 13;
+    }
+
+    res += String.fromCharCode(newCharCode);
+  }
+
+  return res;
 }
 
 /**
@@ -240,8 +310,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -269,8 +339,47 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  let firstNum = 0;
+  let secondNum = 1;
+
+  switch (value.substr(0, value.length - 1)) {
+    case value:
+    case 'A':
+      firstNum = 1;
+      break;
+    case 'J':
+      firstNum = 11;
+      break;
+    case 'Q':
+      firstNum = 12;
+      break;
+    case 'K':
+      firstNum = 13;
+      break;
+    default:
+      firstNum = parseInt(value.substr(0, value.length - 1), 10);
+      break;
+  }
+
+  switch (value.substr(value.length - 1)) {
+    case '♣':
+      secondNum = 0;
+      break;
+    case '♦':
+      secondNum = 1;
+      break;
+    case '♥':
+      secondNum = 2;
+      break;
+    case '♠':
+      secondNum = 3;
+      break;
+    default:
+      break;
+  }
+
+  return firstNum + secondNum * 13 - 1;
 }
 
 
